@@ -6,9 +6,9 @@ public class Main {
 		
 		UserManager userManager = new UserManager(new DatabaseLogger());
 		
-		User egitmen = new User(1, "Engin", "Demiroð", "engin@engin.com", 12345);
+		Instructor egitmen = new Instructor(1, 1, "Engin", "Demiroð", "engin@engin.com", 12345, "cokGizliAdminSifresi123");
 		
-		User ogrenci = new User(2, "Bilal", "Dýrmýk", "bigi@bigi.com", 67890);
+		Student ogrenci = new Student(2, 2, "Bilal", "Dýrmýk", "bigi@bigi.com", 67890, 43);
 		
 		User[] users = {egitmen,ogrenci};
 		
@@ -16,7 +16,6 @@ public class Main {
 			userManager.add(user);
 		}
 		
-
 	}
 
 }

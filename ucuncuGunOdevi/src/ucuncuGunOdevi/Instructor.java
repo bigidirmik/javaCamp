@@ -3,23 +3,55 @@ package ucuncuGunOdevi;
 public class Instructor extends User {
 
 	// fields
-	private int superSecretKey; // burada da bir þey yazma amacý ile yazýldý.
+	private int userId;
+	private String firstName;
+	private String lastName;
+	private String fullName;
+	private String superSecretKey; // burada da bir þey yazma amacý ile yazýldý.
 	
 	
 	// constructor
-	public Instructor(int id, String firstName, String lastName, String email, int password, String fullName, int superSecretKey) {
-		super(id, firstName, lastName, email, password);
-		// TODO Auto-generated constructor stub
+	public Instructor(int id, int userId, String firstName, String lastName, String email, int password, String superSecretKey) {
+		super(id, email, password);
 		
+		this.userId = userId;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.superSecretKey = superSecretKey;
 	}
-
+	
 	
 	// gets, sets
-	public int getSuperSecretKey() {
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getFullName() {
+		fullName = firstName + " " + lastName;
+		return fullName;
+	}
+
+	public String getSuperSecretKey() {
 		return superSecretKey;
 	}
-	public void setSuperSecretKey(int superSecretKey) {
+	public void setSuperSecretKey(String superSecretKey) {
 		this.superSecretKey = superSecretKey;
 	}
 

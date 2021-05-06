@@ -8,8 +8,8 @@ public class StudentManager extends UserManager {
 	}
 
 	
-	public void studentOfTheMonth() {
-		System.out.println("Ayýn öðrencisi getirildi.");
+	public void studentOfTheMonth(User user) {
+		System.out.println(user.getId() + "Ayýn öðrencisi getirildi.");
 	}
 
 }

@@ -11,23 +11,23 @@ public class UserManager {
 	
 	
 	public void add(User user) {
-		System.out.println(user.getFullName() + " eklendi.");
+		System.out.println( user.getEmail() + " eklendi.");
 		this.logger.log("loglandý.");
 	}
 
 	public void update(User user) {
-		System.out.println(user.getFullName() + " güncellendi.");
+		System.out.println(user.getEmail() + " güncellendi.");
 		this.logger.log("loglandý.");
 	}
 
 	public void delete(User user) {
-		System.out.println(user.getFullName() + " silindi.");
+		System.out.println(user.getEmail() + " silindi.");
 		this.logger.log("loglandý.");
 	}
 
 	public void list(User[] users) {
 		for(User user : users) {
-			System.out.println(user.getFullName() + " listelendi.");
+			System.out.println(user.getEmail() + " listelendi.");
 			return;
 		}
 		this.logger.log("loglandý.");
