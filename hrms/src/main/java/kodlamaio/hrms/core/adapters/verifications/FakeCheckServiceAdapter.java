@@ -2,6 +2,9 @@ package kodlamaio.hrms.core.adapters.verifications;
 
 import java.sql.Date;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class FakeCheckServiceAdapter implements UserCheckService {
 
 	@Override

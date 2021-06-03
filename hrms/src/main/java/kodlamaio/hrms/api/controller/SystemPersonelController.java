@@ -23,7 +23,7 @@ public class SystemPersonelController {
 		this.systemPersonelService = systemPersonelService;
 	}
 	
-	@GetMapping("/getall")
+	@GetMapping("/getAll")
 	public DataResult<List<SystemPersonel>> getAll(){
 		return systemPersonelService.getAll();
 	}

@@ -26,7 +26,7 @@ public class JobTitlesController {
 		this.jobTitleService = jobTitleService;
 	}
 
-	@GetMapping("/getall")
+	@GetMapping("/getAll")
 	public DataResult<List<JobTitle>> getAll(){
 		return this.jobTitleService.getAll();
 	}

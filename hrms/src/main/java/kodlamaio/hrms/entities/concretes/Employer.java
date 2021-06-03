@@ -37,6 +37,11 @@ public class Employer extends User {
 	@Column(name = "phone_number")
 	private String phoneNumber;
 	
-	// tablodaki is_activated booelan alanı eklenmedi. gereksiz ise tablodan silebilirim.
+	// tablodaki is_activated booelan alanı eklenmedi, gerekmediği anlaşılırsa ise tablodan sileceğim.
+	
+	//ORM
+	
+	//@OneToMany(mappedBy = "job_advertisements")
+	//private List<JobAdvertisement> jobAdvertisements;
 	
 }

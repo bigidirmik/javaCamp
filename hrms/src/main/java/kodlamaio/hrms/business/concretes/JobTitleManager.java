@@ -42,7 +42,7 @@ public class JobTitleManager implements JobTitleService {
 		}
 		
 		this.jobTitleDao.save(jobTitle);
-		return new SuccessResult("İş eklendi");
+		return new SuccessResult("İş dalı eklendi");
 	}
 
 }
