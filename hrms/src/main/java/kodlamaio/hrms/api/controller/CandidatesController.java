@@ -31,6 +31,16 @@ public class CandidatesController {
 		return this.candidateService.getAll();
 	}
 	
+	@GetMapping("/getAllAsc")
+	DataResult<List<Candidate>> getAllAsc(){
+		return candidateService.getAllAsc();
+	}
+	
+	@GetMapping("/getAllByPage")
+	public DataResult<List<Candidate>> getAll(int pageNo, int pageSize){
+		return candidateService.getAll(pageNo, pageSize);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody Candidate candidate) {
 		return this.candidateService.add(candidate);

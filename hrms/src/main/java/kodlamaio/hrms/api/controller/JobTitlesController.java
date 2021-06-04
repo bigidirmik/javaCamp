@@ -31,6 +31,16 @@ public class JobTitlesController {
 		return this.jobTitleService.getAll();
 	}
 	
+	@GetMapping("/getAllAsc")
+	DataResult<List<JobTitle>> getAllAsc(){
+		return jobTitleService.getAllAsc();
+	}
+	
+	@GetMapping("/getAllByPage")
+	public DataResult<List<JobTitle>> getAll(int pageNo, int pageSize){
+		return jobTitleService.getAll(pageNo, pageSize);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody JobTitle jobTitle) {
 		return this.jobTitleService.add(jobTitle);

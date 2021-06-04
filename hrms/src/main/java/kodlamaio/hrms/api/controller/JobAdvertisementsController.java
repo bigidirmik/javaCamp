@@ -33,13 +33,23 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.getAll();
 	}
 	
+	@GetMapping("/getAllAsc")
+	DataResult<List<JobAdvertisement>> getAllAsc(){
+		return jobAdvertisementService.getAllAsc();
+	}
+	
+	@GetMapping("/getAllByPage")
+	public DataResult<List<JobAdvertisement>> getAll(int pageNo, int pageSize){
+		return jobAdvertisementService.getAll(pageNo, pageSize);
+	}
+	
 	@PostMapping("/add")
 	public Result add(@RequestBody JobAdvertisement jobAdvertisement) {
 		return this.jobAdvertisementService.add(jobAdvertisement);
 	}
 	
 	@PostMapping("/setActivityStatus")
-	public Result setActivityStatus(@RequestParam int id, @RequestParam boolean status) {
+	public Result setActivityStatus(@RequestParam("id") int id, @RequestParam("status") boolean status) {
 		return this.jobAdvertisementService.setActivityStatus(id, status);
 	}
 	
@@ -49,14 +59,14 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.getByIsActive(isActive);
 	}
 	
-	@GetMapping("/getByIsActivatedAndApplicationDeadline")
-	public DataResult<List<JobAdvertisement>> getByIsActivatedAndApplicationDeadline(@RequestParam boolean isActivated, @RequestParam Date applicationDeadline){
-		return this.jobAdvertisementService.getByIsActiveAndApplicationDeadline(isActivated, applicationDeadline);
+	@GetMapping("/getByIsActiveAndApplicationDeadline")
+	public DataResult<List<JobAdvertisement>> getByIsActiveAndApplicationDeadline(@RequestParam("isActive") boolean isActive, @RequestParam("applicationDeadline") Date applicationDeadline){
+		return this.jobAdvertisementService.getByIsActiveAndApplicationDeadline(isActive, applicationDeadline);
 	}
 	
-	@GetMapping("/getByIsActivatedAndEmployerId")
-	public DataResult<List<JobAdvertisement>> getByIsActivatedAndEmployerId(@RequestParam boolean isActivated, @RequestParam int employerId){
-		return this.jobAdvertisementService.getByIsActiveAndEmployerId(isActivated, employerId);
+	@GetMapping("/getByIsActiveAndEmployerId")
+	public DataResult<List<JobAdvertisement>> getByIsActiveAndEmployerId(@RequestParam("isActive") boolean isActive, @RequestParam("employerId") int employerId){
+		return this.jobAdvertisementService.getByIsActiveAndEmployerId(isActive, employerId);
 	}
 
 }

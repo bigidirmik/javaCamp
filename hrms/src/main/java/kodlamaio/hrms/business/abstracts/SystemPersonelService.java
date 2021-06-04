@@ -8,5 +8,9 @@ import kodlamaio.hrms.entities.concretes.SystemPersonel;
 public interface SystemPersonelService {
 	
 	DataResult<List<SystemPersonel>> getAll();
+	
+	DataResult<List<SystemPersonel>> getAllAsc();
+	
+	DataResult<List<SystemPersonel>> getAll(int pageNo, int pageSize);
 
 }

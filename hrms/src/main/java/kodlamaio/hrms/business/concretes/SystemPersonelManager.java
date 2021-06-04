@@ -3,6 +3,9 @@ package kodlamaio.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.SystemPersonelService;
@@ -25,6 +28,18 @@ public class SystemPersonelManager implements SystemPersonelService {
 	@Override
 	public DataResult<List<SystemPersonel>> getAll() {
 		return new SuccessDataResult<List<SystemPersonel>>(this.systemPersonelDao.findAll(),"Sistem personeli listelendi");
+	}
+	
+	@Override
+	public DataResult<List<SystemPersonel>> getAllAsc() {
+		Sort sort = Sort.by(Sort.Direction.ASC,"firstName");
+		return new SuccessDataResult<List<SystemPersonel>>(this.systemPersonelDao.findAll(sort),"Sistem personeli listelendi");
+	}
+
+	@Override
+	public DataResult<List<SystemPersonel>> getAll(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		return new SuccessDataResult<List<SystemPersonel>>(this.systemPersonelDao.findAll(pageable).getContent(),"Sistem personeli listelendi");
 	}
 
 }

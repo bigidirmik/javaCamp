@@ -3,6 +3,9 @@ package kodlamaio.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobTitleService;
@@ -30,6 +33,18 @@ public class JobTitleManager implements JobTitleService {
 	@Override
 	public DataResult<List<JobTitle>> getAll() {
 		return new SuccessDataResult<List<JobTitle>>(this.jobTitleDao.findAll(),"Data listelendi");
+	}
+	
+	@Override
+	public DataResult<List<JobTitle>> getAllAsc() {
+		Sort sort = Sort.by(Sort.Direction.ASC,"title");
+		return new SuccessDataResult<List<JobTitle>>(this.jobTitleDao.findAll(sort),"Data listelendi");
+	}
+	
+	@Override
+	public DataResult<List<JobTitle>> getAll(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		return new SuccessDataResult<List<JobTitle>>(this.jobTitleDao.findAll(pageable).getContent(),"Data listelendi");
 	}
 
 

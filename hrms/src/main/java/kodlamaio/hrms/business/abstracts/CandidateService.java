@@ -13,6 +13,10 @@ public interface CandidateService {
 	
 	DataResult<List<Candidate>> getAll();
 	
+	DataResult<List<Candidate>> getAllAsc();
+	
+	DataResult<List<Candidate>> getAll(int pageNo, int pageSize);
+	
 	DataResult<Candidate> findByEmail(String email);
 	DataResult<Candidate> findByNationalityId(String nationalityId);
 	

@@ -9,4 +9,8 @@ public interface CityService {
 	
 	DataResult<List<City>> getAll();
 	
+	DataResult<List<City>> getAllAsc();
+	
+	DataResult<List<City>> getAll(int pageNo, int pageSize);
+	
 }

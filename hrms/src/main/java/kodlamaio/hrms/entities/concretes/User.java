@@ -16,17 +16,30 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+//@JsonIgnoreProperties({"hibernateLazyInitializer","handler","systemPersonel","employer","candidate"})
 public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-	
+
 	@Column(name = "email")
 	private String email;
-	
+
 	@Column(name = "password")
 	private String password;
+
 	
+	// ORM
+
+//	@OneToOne(mappedBy = "user")
+//	private SystemPersonel systemPersonel;
+//	
+//	@OneToOne(mappedBy = "user")
+//	private Employer employer;
+//	
+//	@OneToOne(mappedBy = "user")
+//	private Candidate candidate;
+
 }

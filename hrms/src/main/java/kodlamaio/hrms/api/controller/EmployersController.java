@@ -31,6 +31,16 @@ public class EmployersController {
 	public DataResult<List<Employer>> getAll() {
 		return this.employerService.getAll();
 	}
+	
+	@GetMapping("/getAllAsc")
+	DataResult<List<Employer>> getAllAsc(){
+		return employerService.getAllAsc();
+	}
+	
+	@GetMapping("/getAllByPage")
+	public DataResult<List<Employer>> getAll(int pageNo, int pageSize){
+		return employerService.getAll(pageNo, pageSize);
+	}
 
 	@PostMapping("/add")
 	public Result add(@RequestBody Employer employer) {

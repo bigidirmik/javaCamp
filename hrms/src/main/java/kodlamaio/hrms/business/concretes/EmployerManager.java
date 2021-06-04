@@ -3,6 +3,9 @@ package kodlamaio.hrms.business.concretes;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
@@ -36,6 +39,19 @@ public class EmployerManager implements EmployerService {
 	public DataResult<List<Employer>> getAll() {
 		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(),"İşverenler listelendi");
 	}
+	
+	@Override
+	public DataResult<List<Employer>> getAllAsc() {
+		Sort sort = Sort.by(Sort.Direction.ASC,"companyName");
+		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(sort),"İşverenler listelendi");
+	}
+	
+	@Override
+	public DataResult<List<Employer>> getAll(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(pageable).getContent(),"İşverenler listelendi");
+	}
+	
 
 	@Override
 	public DataResult<Employer> findByEmail(String email) {

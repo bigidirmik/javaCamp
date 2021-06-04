@@ -15,11 +15,18 @@ public interface JobAdvertisementService {
 	
 	DataResult<List<JobAdvertisement>> getAll();
 	
+	DataResult<List<JobAdvertisement>> getAllAsc();
+	
+	DataResult<List<JobAdvertisement>> getAll(int pageNo, int pageSize);
+	
 	
 	DataResult<List<JobAdvertisement>> getByIsActive(boolean isActive);
 	
 	DataResult<List<JobAdvertisement>> getByIsActiveAndApplicationDeadline(boolean isActive, Date applicationDeadline);
 	
 	DataResult<List<JobAdvertisement>> getByIsActiveAndEmployerId(boolean isActive, int employerId);
+	
+	//Query Method
+	DataResult<List<JobAdvertisement>> getByQueryActiveAndAppDeadlineAsc(boolean isActive, Date applicationDeadline);
 	
 }

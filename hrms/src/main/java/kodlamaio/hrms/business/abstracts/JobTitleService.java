@@ -12,4 +12,8 @@ public interface JobTitleService {
 	
 	DataResult<List<JobTitle>> getAll();
 	
+	DataResult<List<JobTitle>> getAllAsc();
+	
+	DataResult<List<JobTitle>> getAll(int pageNo, int pageSize);
+	
 }

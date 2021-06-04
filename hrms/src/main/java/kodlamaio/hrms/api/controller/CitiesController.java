@@ -27,5 +27,15 @@ public class CitiesController {
 	public DataResult<List<City>> getAll(){
 		return this.cityService.getAll();
 	}
+	
+	@GetMapping("/getAllAsc")
+	DataResult<List<City>> getAllAsc(){
+		return cityService.getAllAsc();
+	}
+	
+	@GetMapping("/getAllByPage")
+	public DataResult<List<City>> getAll(int pageNo, int pageSize){
+		return cityService.getAll(pageNo, pageSize);
+	}
 
 }

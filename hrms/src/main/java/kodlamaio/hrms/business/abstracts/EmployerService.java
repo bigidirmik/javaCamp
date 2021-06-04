@@ -12,6 +12,10 @@ public interface EmployerService {
 	
 	DataResult<List<Employer>> getAll();
 	
+	DataResult<List<Employer>> getAllAsc();
+	
+	DataResult<List<Employer>> getAll(int pageNo, int pageSize);
+	
 	DataResult<Employer> findByEmail(String email);
 
 }

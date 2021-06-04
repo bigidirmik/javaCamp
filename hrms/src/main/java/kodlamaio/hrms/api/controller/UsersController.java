@@ -28,4 +28,14 @@ public class UsersController  {
 		return userService.getAll();
 	}
 	
+	@GetMapping("/getAllAsc")
+	DataResult<List<User>> getAllAsc(){
+		return userService.getAllAsc();
+	}
+	
+	@GetMapping("/getAllByPage")
+	public DataResult<List<User>> getAll(int pageNo, int pageSize){
+		return userService.getAll(pageNo, pageSize);
+	}
+	
 }

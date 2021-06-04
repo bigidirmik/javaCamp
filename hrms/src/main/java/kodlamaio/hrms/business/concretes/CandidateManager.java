@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
@@ -40,6 +43,19 @@ public class CandidateManager implements CandidateService {
 	public DataResult<List<Candidate>> getAll() {
 		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findAll(),"Adaylar listelendi");
 	}
+	
+	@Override
+	public DataResult<List<Candidate>> getAllAsc() {
+		Sort sort = Sort.by(Sort.Direction.ASC,"firstName");
+		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findAll(sort),"Adaylar listelendi");
+	}
+	
+	@Override
+	public DataResult<List<Candidate>> getAll(int pageNo, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
+		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findAll(pageable).getContent(),"Adaylar listelendi");
+	}
+	
 
 	@Override
 	public DataResult<Candidate> findByEmail(String email) {

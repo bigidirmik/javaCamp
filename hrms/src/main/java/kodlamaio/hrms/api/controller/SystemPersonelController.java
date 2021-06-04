@@ -27,5 +27,15 @@ public class SystemPersonelController {
 	public DataResult<List<SystemPersonel>> getAll(){
 		return systemPersonelService.getAll();
 	}
+	
+	@GetMapping("/getAllAsc")
+	DataResult<List<SystemPersonel>> getAllAsc(){
+		return systemPersonelService.getAllAsc();
+	}
+	
+	@GetMapping("/getAllByPage")
+	public DataResult<List<SystemPersonel>> getAll(int pageNo, int pageSize){
+		return systemPersonelService.getAll(pageNo, pageSize);
+	}
 
 }
