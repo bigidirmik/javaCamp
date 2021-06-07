@@ -10,7 +10,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
-import kodlamaio.hrms.business.validationRules.CandidateValidation;
 import kodlamaio.hrms.core.adapters.verifications.UserCheckService;
 import kodlamaio.hrms.core.helpers.EmailService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
@@ -59,12 +58,12 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public DataResult<Candidate> findByEmail(String email) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findByEmail(email),"Aday getirildi");
+		return new SuccessDataResult<Candidate>(this.candidateDao.findByEmail(email),"Aday bulundu");
 	}
 
 	@Override
 	public DataResult<Candidate> findByNationalityId(String nationalityId) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findByNationalityId(nationalityId),"Aday getirildi");
+		return new SuccessDataResult<Candidate>(this.candidateDao.findByNationalityId(nationalityId),"Aday bulundu");
 	}
 
 	@Override
@@ -85,11 +84,7 @@ public class CandidateManager implements CandidateService {
 				candidate.getNationalityId(),
 				candidate.getBirthOfDate()).isSuccess();
 		
-		if(!CandidateValidation.allFieldsRequired(candidate)) {
-			return new ErrorResult("Tüm alanlar zorunludur");
-		}
-		
-		else if(checkEmail||checkNationalityId) {
+		if(checkEmail||checkNationalityId) {
 			return new ErrorResult("Kimlik numarası/Email zaten mevcut");
 		}
 		

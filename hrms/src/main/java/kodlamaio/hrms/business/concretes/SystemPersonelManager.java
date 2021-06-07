@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.SystemPersonelService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
+import kodlamaio.hrms.core.utilities.results.SuccessResult;
 import kodlamaio.hrms.dataAccess.abstracts.SystemPersonelDao;
 import kodlamaio.hrms.entities.concretes.SystemPersonel;
 
@@ -23,6 +25,12 @@ public class SystemPersonelManager implements SystemPersonelService {
 	public SystemPersonelManager(SystemPersonelDao systemPersonelDao) {
 		super();
 		this.systemPersonelDao = systemPersonelDao;
+	}
+	
+	@Override
+	public Result add(SystemPersonel systemPersonel) {
+		this.systemPersonelDao.save(systemPersonel);
+		return new SuccessResult("Sistem personeli eklendi");
 	}
 
 	@Override
@@ -40,6 +48,11 @@ public class SystemPersonelManager implements SystemPersonelService {
 	public DataResult<List<SystemPersonel>> getAll(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		return new SuccessDataResult<List<SystemPersonel>>(this.systemPersonelDao.findAll(pageable).getContent(),"Sistem personeli listelendi");
+	}
+
+	@Override
+	public DataResult<SystemPersonel> findByEmail(String email) {
+		return new SuccessDataResult<SystemPersonel>(this.systemPersonelDao.findByEmail(email),"Sistem personeli bulundu");
 	}
 
 }

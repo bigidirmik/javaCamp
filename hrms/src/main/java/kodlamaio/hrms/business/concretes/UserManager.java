@@ -9,10 +9,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.UserService;
+import kodlamaio.hrms.core.dataAccess.UserDao;
+import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
-import kodlamaio.hrms.dataAccess.abstracts.UserDao;
-import kodlamaio.hrms.entities.concretes.User;
 
 @Service
 public class UserManager implements UserService {
@@ -40,6 +40,11 @@ public class UserManager implements UserService {
 	public DataResult<List<User>> getAll(int pageNo, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		return new SuccessDataResult<List<User>>(this.userDao.findAll(pageable).getContent(),"Kullanıcılar listelendi");
+	}
+
+	@Override
+	public DataResult<User> findByEmail(String email) {
+		return new SuccessDataResult<User>(this.userDao.findByEmail(email),"Kullanıcı bulundu");
 	}
 
 }

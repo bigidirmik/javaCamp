@@ -9,9 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -34,12 +37,18 @@ public class Employer extends User {
 	@Column(name = "user_id")
 	private int userId;
 
+	@NotBlank
+	@NotNull
 	@Column(name = "company_name")
 	private String companyName;
 
+	@NotBlank
+	@NotNull
 	@Column(name = "web_adress")
 	private String webAdress;
 
+	@NotBlank
+	@NotNull
 	@Column(name = "phone_number")
 	private String phoneNumber;
 

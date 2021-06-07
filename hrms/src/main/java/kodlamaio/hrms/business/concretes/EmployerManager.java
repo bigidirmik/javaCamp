@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
-import kodlamaio.hrms.business.validationRules.EmployerValidation;
 import kodlamaio.hrms.core.helpers.EmailService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorResult;
@@ -55,7 +54,7 @@ public class EmployerManager implements EmployerService {
 
 	@Override
 	public DataResult<Employer> findByEmail(String email) {
-		return new SuccessDataResult<Employer>(this.employerDao.findByEmail(email),"İşveren getirildi");
+		return new SuccessDataResult<Employer>(this.employerDao.findByEmail(email),"İşveren bulundu");
 	}
 	
 	
@@ -66,11 +65,7 @@ public class EmployerManager implements EmployerService {
 		var checkEmail = this.findByEmail(employer.getEmail()).isSuccess();
 		//var checkWebAdress = (employer.getEmail() == employer.getWebAdress()).isSuccess();
 		
-		if(!EmployerValidation.allFieldsRequired(employer)) {
-			return new ErrorResult("Tüm alanlar zorunludur");
-		}
-		
-		else if(checkEmail) {
+		if(checkEmail) {
 			return new ErrorResult("Email zaten mevcut");
 		}
 		
