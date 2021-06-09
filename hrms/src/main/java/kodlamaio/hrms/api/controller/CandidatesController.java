@@ -55,6 +55,7 @@ public class CandidatesController {
 	public DataResult<List<Candidate>> getAll(int pageNo, int pageSize) {
 		return candidateService.getAll(pageNo, pageSize);
 	}
+	
 
 
 	// hata fırlatma

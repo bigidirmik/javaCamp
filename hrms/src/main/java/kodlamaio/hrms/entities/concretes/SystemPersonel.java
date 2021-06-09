@@ -52,5 +52,8 @@ public class SystemPersonel extends User {
 	@NotNull
 	@Column(name = "birth_of_date")
 	private Date birthOfDate;
+	
+	//ORM
+	
 
 }
