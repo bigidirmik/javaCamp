@@ -19,41 +19,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import kodlamaio.hrms.business.abstracts.JobTitleService;
+import kodlamaio.hrms.business.abstracts.WorkExperienceService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
-import kodlamaio.hrms.entities.concretes.JobTitle;
+import kodlamaio.hrms.entities.concretes.WorkExperience;
 
 @RestController
-@RequestMapping("/api/job-titles")
-public class JobTitlesController {
-
-	private JobTitleService jobTitleService;
+@RequestMapping("/api/work-experiences")
+public class WorkExperiencesController {
 	
+	private WorkExperienceService workExperienceService;
+
 	@Autowired
-	public JobTitlesController(JobTitleService jobTitleService) {
+	public WorkExperiencesController(WorkExperienceService workExperienceService) {
 		super();
-		this.jobTitleService = jobTitleService;
-	}
-
-	@GetMapping("/getAll")
-	public DataResult<List<JobTitle>> getAll(){
-		return this.jobTitleService.getAll();
+		this.workExperienceService = workExperienceService;
 	}
 	
-	@GetMapping("/getAllAsc")
-	DataResult<List<JobTitle>> getAllAsc(){
-		return jobTitleService.getAllAsc();
-	}
-	
-	@GetMapping("/getAllByPage")
-	public DataResult<List<JobTitle>> getAll(int pageNo, int pageSize){
-		return jobTitleService.getAll(pageNo, pageSize);
+	@GetMapping("/getAllByCandidateIdOrderByEndDateDesc")
+	DataResult<List<WorkExperience>> getAllByCandidateIdOrderByEndDateDesc(int candidateId){
+		return this.workExperienceService.getAllByCandidateIdOrderByEndDateDesc(candidateId);
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody JobTitle jobTitle) {
-		return ResponseEntity.ok(this.jobTitleService.add(jobTitle));
+	public ResponseEntity<?> add(@Valid @RequestBody WorkExperience workExperience) {
+		return ResponseEntity.ok(this.workExperienceService.add(workExperience));
 	}
 	
 	
@@ -70,5 +60,5 @@ public class JobTitlesController {
 		ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları");
 		return errors;
 	}
-	
+
 }

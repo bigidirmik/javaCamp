@@ -9,9 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
-import kodlamaio.hrms.core.helpers.EmailService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
-import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -31,7 +29,9 @@ public class EmployerManager implements EmployerService {
 
 	@Override
 	public Result add(Employer employer) {
-		return this.checkForAdd(employer); // ilgili kod satırı en altta
+		//return this.checkForAdd(employer); // ilgili kod satırı en altta
+		this.employerDao.save(employer);
+		return new SuccessResult("İşveren eklendi");
 	}
 
 	@Override
@@ -58,20 +58,20 @@ public class EmployerManager implements EmployerService {
 	}
 	
 	
-	// business codes
-	
-	private Result checkForAdd(Employer employer) {
-		
-		var checkEmail = this.findByEmail(employer.getEmail()).isSuccess();
-		//var checkWebAdress = (employer.getEmail() == employer.getWebAdress()).isSuccess();
-		
-		if(checkEmail) {
-			return new ErrorResult("Email zaten mevcut");
-		}
-		
-		this.employerDao.save(employer);
-		EmailService.sendEmail(employer.getEmail());
-		return new SuccessResult("İşveren eklendi");
-	}
+//	// business codes
+//	
+//	private Result checkForAdd(Employer employer) {
+//		
+//		var checkEmail = this.findByEmail(employer.getEmail()).isSuccess();
+//		//var checkWebAdress = (employer.getEmail() == employer.getWebAdress()).isSuccess();
+//		
+//		if(checkEmail) {
+//			return new ErrorResult("Email zaten mevcut");
+//		}
+//		
+//		this.employerDao.save(employer);
+//		EmailService.sendEmail(employer.getEmail());
+//		return new SuccessResult("İşveren eklendi");
+//	}
 
 }

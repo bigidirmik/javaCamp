@@ -27,15 +27,6 @@ public class JobAdvertisement {
 	@Column(name = "id")
 	private int id;
 
-	// @Column(name = "employer_id")
-	// private int employerId;
-
-	// @Column(name = "job_title_id")
-	// private int jobTitleId;
-
-	// @Column(name = "city_id")
-	// private int cityId;
-
 	@Column(name = "description")
 	private String description;
 

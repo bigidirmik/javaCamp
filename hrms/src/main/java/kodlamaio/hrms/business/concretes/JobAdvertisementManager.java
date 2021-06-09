@@ -49,7 +49,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	
 	@Override
 	public DataResult<List<JobAdvertisement>> getAllAsc() {
-		Sort sort = Sort.by(Sort.Direction.ASC,"jobTitle_id"); // sıralı gelmez ise jobtitle_id kısmını kurcala
+		Sort sort = Sort.by(Sort.Direction.ASC,"jobTitle_id"); // sıralı gelmez ise jobtitle_id kısmını kurcala // işlerin kategorisine göre sıralanması
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findAll(sort),"Data listelendi");
 	}
 	

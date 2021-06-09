@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.CandidateService;
 import kodlamaio.hrms.core.adapters.verifications.UserCheckService;
-import kodlamaio.hrms.core.helpers.EmailService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
-import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -35,7 +33,14 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public Result add(Candidate candidate) {
-		return this.checkForAdd(candidate); // ilgili kod satırı en altta
+		//return this.checkForAdd(candidate); // ilgili kod satırı en altta
+		this.candidateDao.save(candidate);
+		return new SuccessResult("Aday eklendi");
+	}
+	
+	@Override
+	public DataResult<Candidate> getById(int candidateId) {
+		return new SuccessDataResult<Candidate>(this.candidateDao.findById(candidateId));
 	}
 
 	@Override
@@ -74,27 +79,27 @@ public class CandidateManager implements CandidateService {
 	
 	// business codes
 	
-	private Result checkForAdd(Candidate candidate) {
-		
-		var checkEmail = this.findByEmail(candidate.getEmail()).isSuccess();
-		var checkNationalityId = this.findByNationalityId(candidate.getNationalityId()).isSuccess();
-		var checkIfRealPerson = this.checkIfRealPerson(
-				candidate.getFirstName(),
-				candidate.getLastName(),
-				candidate.getNationalityId(),
-				candidate.getBirthOfDate()).isSuccess();
-		
-		if(checkEmail||checkNationalityId) {
-			return new ErrorResult("Kimlik numarası/Email zaten mevcut");
-		}
-		
-		else if(!checkIfRealPerson) {
-			return new ErrorResult("Lütfen kişi bilgilerini doğru giriniz");
-		}
-		
-		this.candidateDao.save(candidate);
-		EmailService.sendEmail(candidate.getEmail());
-		return new SuccessResult("Aday eklendi");
-	}
+//	private Result checkForAdd(Candidate candidate) {
+//		
+//		var checkEmail = this.findByEmail(candidate.getEmail()).isSuccess();
+//		var checkNationalityId = this.findByNationalityId(candidate.getNationalityId()).isSuccess();
+//		var checkIfRealPerson = this.checkIfRealPerson(
+//				candidate.getFirstName(),
+//				candidate.getLastName(),
+//				candidate.getNationalityId(),
+//				candidate.getBirthOfDate()).isSuccess();
+//		
+//		if(checkEmail||checkNationalityId) {
+//			return new ErrorResult("Kimlik numarası/Email zaten mevcut");
+//		}
+//		
+//		else if(!checkIfRealPerson) {
+//			return new ErrorResult("Lütfen kişi bilgilerini doğru giriniz");
+//		}
+//		
+//		this.candidateDao.save(candidate);
+//		EmailService.sendEmail(candidate.getEmail());
+//		return new SuccessResult("Aday eklendi");
+//	}
 
 }
