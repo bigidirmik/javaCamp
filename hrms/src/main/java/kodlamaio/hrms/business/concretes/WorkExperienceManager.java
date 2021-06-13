@@ -32,7 +32,7 @@ public class WorkExperienceManager implements WorkExperienceService{
 
 	@Override
 	public DataResult<List<WorkExperience>> getAllByCandidateIdOrderByEndDateDesc(int candidateId) {
-		return new SuccessDataResult<List<WorkExperience>>(this.workExperienceDao.getAllByCandidate_idOrderByEndDateDesc(candidateId),"iş tecrübesi bulundu");
+		return new SuccessDataResult<List<WorkExperience>>(this.workExperienceDao.getAllByCandidate_IdOrderByEndDateDesc(candidateId),"iş tecrübesi bulundu");
 	}
 	
 

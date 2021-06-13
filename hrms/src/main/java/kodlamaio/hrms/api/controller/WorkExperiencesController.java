@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -37,7 +38,7 @@ public class WorkExperiencesController {
 	}
 	
 	@GetMapping("/getAllByCandidateIdOrderByEndDateDesc")
-	DataResult<List<WorkExperience>> getAllByCandidateIdOrderByEndDateDesc(int candidateId){
+	public DataResult<List<WorkExperience>> getAllByCandidateIdOrderByEndDateDesc(@RequestParam int candidateId){
 		return this.workExperienceService.getAllByCandidateIdOrderByEndDateDesc(candidateId);
 	}
 	

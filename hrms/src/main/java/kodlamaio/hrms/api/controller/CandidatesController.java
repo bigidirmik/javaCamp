@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,14 +49,29 @@ public class CandidatesController {
 
 	@GetMapping("/getAllAsc")
 	DataResult<List<Candidate>> getAllAsc() {
-		return candidateService.getAllAsc();
+		return this.candidateService.getAllAsc();
 	}
 
 	@GetMapping("/getAllByPage")
 	public DataResult<List<Candidate>> getAll(int pageNo, int pageSize) {
-		return candidateService.getAll(pageNo, pageSize);
+		return this.candidateService.getAll(pageNo, pageSize);
 	}
 	
+	
+	@GetMapping("/findById")
+	public DataResult<Candidate> findById(@RequestParam int candidateId){
+		return this.candidateService.findById(candidateId);
+	}
+	
+	@GetMapping("/findByEmail")
+	public DataResult<Candidate> findByEmail(@RequestParam String email){
+		return this.candidateService.findByEmail(email);
+	}
+	
+	@GetMapping("/findByNationalityId")
+	public DataResult<Candidate> findByNationalityId(@RequestParam String nationalityId){
+		return this.candidateService.findByNationalityId(nationalityId);
+	}
 
 
 	// hata fırlatma

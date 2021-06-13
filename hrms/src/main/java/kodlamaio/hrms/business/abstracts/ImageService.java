@@ -10,6 +10,9 @@ public interface ImageService {
 	
 	Result add(Image image, MultipartFile imageFile);
 	
+	
+	DataResult<Image> getById(int imageId);
+	
 	DataResult<Image> getByCandidateId(int candidateId);
 
 }

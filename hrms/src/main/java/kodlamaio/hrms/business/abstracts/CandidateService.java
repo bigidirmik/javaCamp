@@ -11,13 +11,14 @@ public interface CandidateService {
 
 	Result add(Candidate candidate);
 	
-	DataResult<Candidate> getById(int candidateId);	
-	
 	DataResult<List<Candidate>> getAll();
 	
 	DataResult<List<Candidate>> getAllAsc();
 	
 	DataResult<List<Candidate>> getAll(int pageNo, int pageSize);
+	
+	
+	DataResult<Candidate> findById(int candidateId);	
 	
 	DataResult<Candidate> findByEmail(String email);
 	

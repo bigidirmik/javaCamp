@@ -42,13 +42,13 @@ public class JobTitlesController {
 	}
 	
 	@GetMapping("/getAllAsc")
-	DataResult<List<JobTitle>> getAllAsc(){
-		return jobTitleService.getAllAsc();
+	public DataResult<List<JobTitle>> getAllAsc(){
+		return this.jobTitleService.getAllAsc();
 	}
 	
 	@GetMapping("/getAllByPage")
 	public DataResult<List<JobTitle>> getAll(int pageNo, int pageSize){
-		return jobTitleService.getAll(pageNo, pageSize);
+		return this.jobTitleService.getAll(pageNo, pageSize);
 	}
 	
 	@PostMapping("/add")

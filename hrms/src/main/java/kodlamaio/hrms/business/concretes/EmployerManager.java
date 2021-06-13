@@ -50,11 +50,16 @@ public class EmployerManager implements EmployerService {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		return new SuccessDataResult<List<Employer>>(this.employerDao.findAll(pageable).getContent(),"İşverenler listelendi");
 	}
+
 	
+	@Override
+	public DataResult<Employer> findById(int employerId) {
+		return new SuccessDataResult<Employer>(this.employerDao.findById(employerId));
+	}
 
 	@Override
 	public DataResult<Employer> findByEmail(String email) {
-		return new SuccessDataResult<Employer>(this.employerDao.findByEmail(email),"İşveren bulundu");
+		return new SuccessDataResult<Employer>(this.employerDao.findByUser_Email(email),"İşveren bulundu");
 	}
 	
 	

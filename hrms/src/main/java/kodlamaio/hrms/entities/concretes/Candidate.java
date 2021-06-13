@@ -8,13 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
@@ -35,8 +35,8 @@ public class Candidate extends User {
 	@Column(name = "id")
 	private int id;
 
-	@Column(name = "user_id")
-	private int userId;
+//	@Column(name = "user_id")
+//	private int userId;
 
 	@NotBlank
 	@NotNull
@@ -61,31 +61,35 @@ public class Candidate extends User {
 	
 	// ORM
 	
-	@JsonIgnore
+	@OneToOne()
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+//	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<Education> educations;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<WorkExperience> workExperiences;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<Language> languages;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToOne(mappedBy = "candidate")
 	private Image image;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<Network> networks;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToMany(mappedBy = "candidate")
 	private List<Skill> skills;
 	
-	@JsonIgnore
+//	@JsonIgnore
 	@OneToOne(mappedBy = "candidate")
 	private CoverLetter coverLetter;
 	

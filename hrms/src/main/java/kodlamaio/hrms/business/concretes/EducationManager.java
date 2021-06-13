@@ -32,7 +32,7 @@ public class EducationManager implements EducationService {
 
 	@Override
 	public DataResult<List<Education>> getAllByCandidateIdOrderByEndDateDesc(int candidateId) {
-		return new SuccessDataResult<List<Education>>(this.educationDao.getAllByCandidate_idOrderByEndDateDesc(candidateId),"Eğitim bilgisi bulundu");
+		return new SuccessDataResult<List<Education>>(this.educationDao.getAllByCandidate_IdOrderByEndDateDesc(candidateId),"Eğitim bilgisi bulundu");
 	}
 	
 }

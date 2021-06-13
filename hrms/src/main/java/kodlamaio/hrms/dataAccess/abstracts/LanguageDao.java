@@ -8,6 +8,6 @@ import kodlamaio.hrms.entities.concretes.Language;
 
 public interface LanguageDao extends JpaRepository<Language, Integer>{
 	
-	List<Language> getAllByCandidate_id(int candidateId);
+	List<Language> getAllByCandidate_Id(int candidateId);
 
 }

@@ -33,7 +33,7 @@ public class NetworksController {
 	}
 	
 	@GetMapping("/getByCandidateId")
-	DataResult<List<Network>> getByCandidateId(@RequestParam int candidateId){
+	public DataResult<List<Network>> getByCandidateId(@RequestParam int candidateId){
 		return this.networkService.getByCandidateId(candidateId);
 	}
 

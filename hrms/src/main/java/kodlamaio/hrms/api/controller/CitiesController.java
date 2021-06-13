@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import kodlamaio.hrms.business.abstracts.CityService;
@@ -29,13 +30,24 @@ public class CitiesController {
 	}
 	
 	@GetMapping("/getAllAsc")
-	DataResult<List<City>> getAllAsc(){
-		return cityService.getAllAsc();
+	public DataResult<List<City>> getAllAsc(){
+		return this.cityService.getAllAsc();
 	}
 	
 	@GetMapping("/getAllByPage")
 	public DataResult<List<City>> getAll(int pageNo, int pageSize){
-		return cityService.getAll(pageNo, pageSize);
+		return this.cityService.getAll(pageNo, pageSize);
+	}
+	
+	
+	@GetMapping("/findById")
+	public DataResult<City> findById(@RequestParam int cityId){
+		return this.cityService.findById(cityId);
+	}
+	
+	@GetMapping("/findByCityName")
+	public DataResult<City> findByCityName(@RequestParam String cityName){
+		return this.cityService.findByCityName(cityName);
 	}
 
 }

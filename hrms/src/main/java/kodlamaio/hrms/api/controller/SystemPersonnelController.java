@@ -16,44 +16,56 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import kodlamaio.hrms.business.abstracts.SystemPersonelService;
+import kodlamaio.hrms.business.abstracts.SystemPersonnelService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
-import kodlamaio.hrms.entities.concretes.SystemPersonel;
+import kodlamaio.hrms.entities.concretes.SystemPersonnel;
 
 @RestController
 @RequestMapping("/api/systempersonel")
-public class SystemPersonelController {
+public class SystemPersonnelController {
 
-	private SystemPersonelService systemPersonelService;
+	private SystemPersonnelService systemPersonnelService;
 
 	@Autowired
-	public SystemPersonelController(SystemPersonelService systemPersonelService) {
+	public SystemPersonnelController(SystemPersonnelService systemPersonnelService) {
 		super();
-		this.systemPersonelService = systemPersonelService;
+		this.systemPersonnelService = systemPersonnelService;
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody SystemPersonel systemPersonel) {
-		return ResponseEntity.ok(this.systemPersonelService.add(systemPersonel));
+	public ResponseEntity<?> add(@Valid @RequestBody SystemPersonnel systemPersonnel) {
+		return ResponseEntity.ok(this.systemPersonnelService.add(systemPersonnel));
 	}
 
 	@GetMapping("/getAll")
-	public DataResult<List<SystemPersonel>> getAll() {
-		return systemPersonelService.getAll();
+	public DataResult<List<SystemPersonnel>> getAll() {
+		return this.systemPersonnelService.getAll();
 	}
 
 	@GetMapping("/getAllAsc")
-	DataResult<List<SystemPersonel>> getAllAsc() {
-		return systemPersonelService.getAllAsc();
+	public DataResult<List<SystemPersonnel>> getAllAsc() {
+		return this.systemPersonnelService.getAllAsc();
 	}
 
 	@GetMapping("/getAllByPage")
-	public DataResult<List<SystemPersonel>> getAll(int pageNo, int pageSize) {
-		return systemPersonelService.getAll(pageNo, pageSize);
+	public DataResult<List<SystemPersonnel>> getAll(int pageNo, int pageSize) {
+		return this.systemPersonnelService.getAll(pageNo, pageSize);
+	}
+	
+	
+	@GetMapping("/findById")
+	public DataResult<SystemPersonnel> findById(@RequestParam int systemPersonnelId){
+		return this.systemPersonnelService.findById(systemPersonnelId);
+	}
+	
+	@GetMapping("/findByEmail")
+	public DataResult<SystemPersonnel> findByEmail(@RequestParam String email){
+		return this.systemPersonnelService.findByEmail(email);
 	}
 
 	

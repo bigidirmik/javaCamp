@@ -17,9 +17,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	List<JobAdvertisement> getByIsActiveAndEmployer_Id(boolean isActive, int employerId);
 	
 	
-	// Tarih sırasına göre sıralamak için Query - Manager'da ASC olarak yazılacak
-	
-	@Query("From JobAdvertisement where isActive=:isActive and applicationDeadline=:applicationDeadline")
+	@Query("From JobAdvertisement where isActive=:isActive and applicationDeadline=:applicationDeadline order by applicationDeadline Asc")
 	List<JobAdvertisement> getByQueryActiveAndAppDeadlineAsc(boolean isActive, Date applicationDeadline);
 	
 }

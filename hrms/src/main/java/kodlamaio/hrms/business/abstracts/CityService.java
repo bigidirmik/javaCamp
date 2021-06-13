@@ -13,4 +13,9 @@ public interface CityService {
 	
 	DataResult<List<City>> getAll(int pageNo, int pageSize);
 	
+	
+	DataResult<City> findById(int cityId);
+	
+	DataResult<City> findByCityName(String cityName);
+	
 }

@@ -37,32 +37,14 @@ public class ImageManager implements ImageService {
 		return new SuccessResult("Fotoğraf eklendi!");
 	}
 
-//	@Override
-//	public Result update(Image image) {
-//		this.imageDao.save(image);
-//		return new SuccessResult("Fotoğraf güncellendi!");
-//	}
-//
-//	@Override
-//	public Result delete(int id) {
-//		this.imageDao.deleteById(id);
-//		return new SuccessResult("Fotoğraf eklendi!");
-//	}
-//
-//	@Override
-//	public DataResult<Image> getById(int id) {
-//		return new SuccessDataResult<Image>(this.imageDao.getById(id));
-//		
-//	}
-//
-//	@Override
-//	public DataResult<List<Image>> getAll() {
-//		return new SuccessDataResult<List<Image>>(this.imageDao.findAll());		
-//	}
+	@Override
+	public DataResult<Image> getById(int imageId) {
+		return new SuccessDataResult<Image>(this.imageDao.getById(imageId),"Fotoğraf bulundu");		
+	}
 
 	@Override
-	public DataResult<Image>getByCandidateId(int id) {
-		return new SuccessDataResult<Image>(this.imageDao.getByCandidate_id(id));
+	public DataResult<Image>getByCandidateId(int candidateId) {
+		return new SuccessDataResult<Image>(this.imageDao.getByCandidate_Id(candidateId),"Fotoğraf bulundu");
 	}
 	
 	

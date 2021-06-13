@@ -32,7 +32,7 @@ public class LanguageManager implements LanguageService {
 
 	@Override
 	public DataResult<List<Language>> getAllByCandidateId(int candidateId) {
-		return new SuccessDataResult<List<Language>>(this.languageDao.getAllByCandidate_id(candidateId),"Dil bulundu");
+		return new SuccessDataResult<List<Language>>(this.languageDao.getAllByCandidate_Id(candidateId),"Dil bulundu");
 	};
 	
 }

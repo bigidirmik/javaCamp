@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ import kodlamaio.hrms.entities.concretes.JobAdvertisement;
 
 @RestController
 @RequestMapping("/api/job-advertisements")
+@CrossOrigin
 public class JobAdvertisementsController {
 	
 	private JobAdvertisementService jobAdvertisementService;
@@ -39,19 +41,26 @@ public class JobAdvertisementsController {
 		this.jobAdvertisementService = jobAdvertisementService;
 	}
 	
+	
+	@PostMapping("/add")
+	public ResponseEntity<?> add(@Valid @RequestBody JobAdvertisement jobAdvertisement) {
+		return ResponseEntity.ok(this.jobAdvertisementService.add(jobAdvertisement));
+	}
+	
+	
 	@GetMapping("/getAll")
 	public DataResult<List<JobAdvertisement>> getAll(){
 		return this.jobAdvertisementService.getAll();
 	}
 	
 	@GetMapping("/getAllAsc")
-	DataResult<List<JobAdvertisement>> getAllAsc(){
-		return jobAdvertisementService.getAllAsc();
+	public DataResult<List<JobAdvertisement>> getAllAsc(){
+		return this.jobAdvertisementService.getAllAsc();
 	}
 	
 	@GetMapping("/getAllByPage")
 	public DataResult<List<JobAdvertisement>> getAll(int pageNo, int pageSize){
-		return jobAdvertisementService.getAll(pageNo, pageSize);
+		return this.jobAdvertisementService.getAll(pageNo, pageSize);
 	}
 	
 	@PostMapping("/setActivityStatus")
@@ -75,9 +84,10 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.getByIsActiveAndEmployerId(isActive, employerId);
 	}
 	
-	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody JobAdvertisement jobAdvertisement) {
-		return ResponseEntity.ok(this.jobAdvertisementService.add(jobAdvertisement));
+	
+	@GetMapping("/getByQueryActiveAndAppDeadlineAsc")
+	public DataResult<List<JobAdvertisement>> getByQueryActiveAndAppDeadlineAsc(@RequestParam("isActive") boolean isActive, @RequestParam("applicationDeadline") Date applicationDeadline){
+		return this.jobAdvertisementService.getByQueryActiveAndAppDeadlineAsc(isActive, applicationDeadline);
 	}
 	
 	

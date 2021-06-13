@@ -37,11 +37,6 @@ public class CandidateManager implements CandidateService {
 		this.candidateDao.save(candidate);
 		return new SuccessResult("Aday eklendi");
 	}
-	
-	@Override
-	public DataResult<Candidate> getById(int candidateId) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findById(candidateId));
-	}
 
 	@Override
 	public DataResult<List<Candidate>> getAll() {
@@ -60,10 +55,15 @@ public class CandidateManager implements CandidateService {
 		return new SuccessDataResult<List<Candidate>>(this.candidateDao.findAll(pageable).getContent(),"Adaylar listelendi");
 	}
 	
+	
+	@Override
+	public DataResult<Candidate> findById(int candidateId) {
+		return new SuccessDataResult<Candidate>(this.candidateDao.findById(candidateId),"Aday bulundu");
+	}
 
 	@Override
 	public DataResult<Candidate> findByEmail(String email) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findByEmail(email),"Aday bulundu");
+		return new SuccessDataResult<Candidate>(this.candidateDao.findByUser_Email(email),"Aday bulundu");
 	}
 
 	@Override
@@ -71,6 +71,8 @@ public class CandidateManager implements CandidateService {
 		return new SuccessDataResult<Candidate>(this.candidateDao.findByNationalityId(nationalityId),"Aday bulundu");
 	}
 
+	
+	//
 	@Override
 	public DataResult<Boolean> checkIfRealPerson(String firstName, String lastName, String nationalityId, Date dateOfBirth) {
 		return new SuccessDataResult<Boolean>(this.userCheckService.checkIfRealPerson(firstName, lastName, nationalityId, dateOfBirth));

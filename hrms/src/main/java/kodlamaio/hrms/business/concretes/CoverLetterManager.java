@@ -8,7 +8,7 @@ import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
-import kodlamaio.hrms.dataAccess.CoverLetterDao;
+import kodlamaio.hrms.dataAccess.abstracts.CoverLetterDao;
 import kodlamaio.hrms.entities.concretes.CoverLetter;
 
 @Service

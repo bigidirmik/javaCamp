@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,13 +49,24 @@ public class EmployersController {
 	}
 
 	@GetMapping("/getAllAsc")
-	DataResult<List<Employer>> getAllAsc() {
-		return employerService.getAllAsc();
+	public DataResult<List<Employer>> getAllAsc() {
+		return this.employerService.getAllAsc();
 	}
 
 	@GetMapping("/getAllByPage")
 	public DataResult<List<Employer>> getAll(int pageNo, int pageSize) {
-		return employerService.getAll(pageNo, pageSize);
+		return this.employerService.getAll(pageNo, pageSize);
+	}
+	
+	
+	@GetMapping("/findById")
+	public DataResult<Employer> findById(@RequestParam int employerId){
+		return this.employerService.findById(employerId);
+	}
+	
+	@GetMapping("/findByEmail")
+	public DataResult<Employer> findByEmail(@RequestParam String email){
+		return this.employerService.findByEmail(email);
 	}
 
 	

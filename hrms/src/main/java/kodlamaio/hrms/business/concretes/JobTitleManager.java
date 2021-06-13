@@ -47,7 +47,6 @@ public class JobTitleManager implements JobTitleService {
 		return new SuccessDataResult<List<JobTitle>>(this.jobTitleDao.findAll(pageable).getContent(),"Data listelendi");
 	}
 
-
 	@Override
 	public Result add(JobTitle jobTitle) {
 		var checkTitleExist = this.jobTitleDao.findAll().contains(jobTitle);

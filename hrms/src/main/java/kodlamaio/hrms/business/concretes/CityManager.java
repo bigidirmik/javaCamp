@@ -42,4 +42,15 @@ public class CityManager implements CityService {
 		return new SuccessDataResult<List<City>>(this.cityDao.findAll(pageable).getContent(),"Data listelendi");
 	}
 
+	
+	@Override
+	public DataResult<City> findById(int cityId) {
+		return new SuccessDataResult<City>(this.cityDao.findById(cityId),"Şehir bulundu");
+	}
+
+	@Override
+	public DataResult<City> findByCityName(String cityName) {
+		return new SuccessDataResult<City>(this.cityDao.findByCityName(cityName),"Şehir bulundu");
+	}
+
 }

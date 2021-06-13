@@ -31,14 +31,19 @@ public class ImagesController {
 
 	@PostMapping(value = "/add")
 	public Result add(@RequestParam(value = "id") int id, @RequestParam(value = "imageFile") MultipartFile imageFile){
-		Candidate candidate = this.candidateService.getById(id).getData();
+		Candidate candidate = this.candidateService.findById(id).getData();
 		Image image = new Image();
 		image.setCandidate(candidate);
 		return this.imageService.add(image, imageFile);
 	}
+	
+	@GetMapping("/getById")
+	public DataResult<Image> getById(@RequestParam int imageId){
+		return this.imageService.getById(imageId);
+	}
 
 	@GetMapping("/getByCandidateId")
-	DataResult<Image> getByCandidateId(int candidateId) {
+	public DataResult<Image> getByCandidateId(@RequestParam int candidateId) {
 		return this.imageService.getByCandidateId(candidateId);
 	}
 
