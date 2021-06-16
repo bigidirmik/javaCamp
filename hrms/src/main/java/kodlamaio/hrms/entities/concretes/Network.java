@@ -22,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "networks")
 public class Network {
 	
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

@@ -24,7 +24,7 @@ public class LanguageManager implements LanguageService {
 		this.languageDao = languageDao;
 	}
 
-	@Override
+	@Override // tüm dilleri insert join ile ekleyeceğim, getall metodu eklenecek, add metodu silinecek
 	public Result add(Language language) {
 		this.languageDao.save(language);
 		return new SuccessResult("Dil eklendi");
@@ -32,7 +32,7 @@ public class LanguageManager implements LanguageService {
 
 	@Override
 	public DataResult<List<Language>> getAllByCandidateId(int candidateId) {
-		return new SuccessDataResult<List<Language>>(this.languageDao.getAllByCandidate_Id(candidateId),"Dil bulundu");
+		return new SuccessDataResult<List<Language>>(this.languageDao.getAllByCandidate_Id(candidateId),"Diller bulundu");
 	};
 	
 }

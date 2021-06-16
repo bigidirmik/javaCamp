@@ -1,5 +1,6 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.SystemPersonnelService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -29,8 +32,11 @@ public class SystemPersonnelManager implements SystemPersonnelService {
 	
 	@Override
 	public Result add(SystemPersonnel systemPersonnel) {
-		this.systemPersonnelDao.save(systemPersonnel);
-		return new SuccessResult("Sistem personeli eklendi");
+		if(checkForAdd(systemPersonnel).isSuccess()) {
+			this.systemPersonnelDao.save(systemPersonnel);
+			return new SuccessResult("Sistem personeli eklendi");
+		}
+		return new ErrorResult(checkForAdd(systemPersonnel).getMessage());
 	}
 
 	@Override
@@ -58,7 +64,31 @@ public class SystemPersonnelManager implements SystemPersonnelService {
 
 	@Override
 	public DataResult<SystemPersonnel> findByEmail(String email) {
-		return new SuccessDataResult<SystemPersonnel>(this.systemPersonnelDao.findByUser_Email(email),"Sistem personeli bulundu");
+		var data = this.systemPersonnelDao.findByEmail(email);
+		if(data==null) {
+			return new ErrorDataResult<SystemPersonnel>("Sistem personeli bulunamadı");
+		}
+		return new SuccessDataResult<SystemPersonnel>(data,"Sistem personeli bulundu");
+	}
+	
+	
+	// business codes
+	private Result checkForAdd(SystemPersonnel systemPersonnel) {
+		
+		var checkEmail = this.findByEmail(systemPersonnel.getEmail());
+		
+		var checkBirthOfDate = !LocalDate.now().isBefore(systemPersonnel.getBirthOfDate().toLocalDate());
+		
+		if(checkEmail.isSuccess()) {
+			return new ErrorResult("Email zaten mevcut");
+		}
+		
+		else if(checkBirthOfDate) {
+			return new ErrorResult("Lütfen bugünden önce bir doğum tarihi giriniz");
+		}
+		
+		return new SuccessResult();
+		
 	}
 
 }

@@ -31,8 +31,8 @@ public class NetworkManager implements NetworkService {
 	}
 
 	@Override
-	public DataResult<List<Network>> getByCandidateId(int candidateId) {
-		return new SuccessDataResult<List<Network>>(this.networkDao.getByCandidate_Id(candidateId),"Ağ bulundu");
+	public DataResult<List<Network>> getAllByCandidateId(int candidateId) {
+		return new SuccessDataResult<List<Network>>(this.networkDao.getAllByCandidate_Id(candidateId),"Ağlar bulundu");
 	}
 	
 

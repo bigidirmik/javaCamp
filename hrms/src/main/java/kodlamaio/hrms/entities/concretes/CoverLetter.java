@@ -1,5 +1,6 @@
 package kodlamaio.hrms.entities.concretes;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +24,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "cover_letters")
 public class CoverLetter {
 
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -35,7 +37,7 @@ public class CoverLetter {
 	//ORM
 	
 	@JsonIgnore
-	@OneToOne()
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 	

@@ -8,6 +8,6 @@ import kodlamaio.hrms.entities.concretes.Skill;
 
 public interface SkillDao extends JpaRepository<Skill, Integer>{
 	
-	List<Skill> getByCandidate_Id(int candidateId);
+	List<Skill> getAllByCandidate_Id(int candidateId);
 
 }

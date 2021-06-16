@@ -8,6 +8,6 @@ public interface EmployerDao extends JpaRepository<Employer, Integer> {
 	
 	Employer findById(int employerId);
 	
-	Employer findByUser_Email(String email);
+	Employer findByEmail(String email);
 
 }

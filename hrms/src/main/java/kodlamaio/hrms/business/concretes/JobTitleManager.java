@@ -46,6 +46,12 @@ public class JobTitleManager implements JobTitleService {
 		Pageable pageable = PageRequest.of(pageNo-1, pageSize);
 		return new SuccessDataResult<List<JobTitle>>(this.jobTitleDao.findAll(pageable).getContent(),"Data listelendi");
 	}
+	
+	@Override
+	public DataResult<JobTitle> findById(int jobTitleId) {
+		return new SuccessDataResult<JobTitle>(this.jobTitleDao.findById(jobTitleId),"İş başlığı bulundu");
+	}
+	
 
 	@Override
 	public Result add(JobTitle jobTitle) {
@@ -58,5 +64,8 @@ public class JobTitleManager implements JobTitleService {
 		this.jobTitleDao.save(jobTitle);
 		return new SuccessResult("İş dalı eklendi");
 	}
+
+
+	
 
 }

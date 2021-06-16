@@ -13,6 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import kodlamaio.hrms.core.entities.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,6 +29,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SystemPersonnel extends User {
 
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -50,15 +53,16 @@ public class SystemPersonnel extends User {
 	@Column(name = "nationality_id")
 	private String nationalityId;
 
-	@NotBlank
-	@NotNull
+	//@NotBlank
+	//@NotNull
 	@Column(name = "birth_of_date")
 	private Date birthOfDate;
 	
 	//ORM
 	
+	@JsonIgnore
 	@OneToOne()
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "id")
 	private User user;
 	
 }

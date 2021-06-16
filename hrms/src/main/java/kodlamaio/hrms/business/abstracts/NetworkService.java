@@ -10,6 +10,6 @@ public interface NetworkService {
 
 	Result add(Network network);
 	
-	DataResult<List<Network>> getByCandidateId(int candidateId);
+	DataResult<List<Network>> getAllByCandidateId(int candidateId);
 	
 }

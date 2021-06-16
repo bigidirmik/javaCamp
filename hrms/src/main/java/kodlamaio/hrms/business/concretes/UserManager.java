@@ -12,6 +12,7 @@ import kodlamaio.hrms.business.abstracts.UserService;
 import kodlamaio.hrms.core.dataAccess.UserDao;
 import kodlamaio.hrms.core.entities.User;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 
 @Service
@@ -44,7 +45,11 @@ public class UserManager implements UserService {
 
 	@Override
 	public DataResult<User> findByEmail(String email) {
-		return new SuccessDataResult<User>(this.userDao.findByEmail(email),"Kullanıcı bulundu");
+		var data = this.userDao.findByEmail(email);
+		if(data==null) {
+			return new ErrorDataResult<User>("Kullanıcı bulunamadı");
+		}
+		return new SuccessDataResult<User>(data,"Kullanıcı bulundu");
 	}
 
 }

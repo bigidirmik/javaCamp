@@ -1,6 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 import kodlamaio.hrms.business.abstracts.CandidateService;
 import kodlamaio.hrms.core.adapters.verifications.UserCheckService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -33,9 +36,11 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public Result add(Candidate candidate) {
-		//return this.checkForAdd(candidate); // ilgili kod satırı en altta
-		this.candidateDao.save(candidate);
-		return new SuccessResult("Aday eklendi");
+		if(checkForAdd(candidate).isSuccess()) {
+			this.candidateDao.save(candidate);
+			return new SuccessResult("Aday eklendi");
+		}
+		return new ErrorResult(checkForAdd(candidate).getMessage());
 	}
 
 	@Override
@@ -63,12 +68,20 @@ public class CandidateManager implements CandidateService {
 
 	@Override
 	public DataResult<Candidate> findByEmail(String email) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findByUser_Email(email),"Aday bulundu");
+		var data = this.candidateDao.findByEmail(email);
+		if(data==null) {
+			return new ErrorDataResult<Candidate>("Aday bulunamadı");
+		}
+		return new SuccessDataResult<Candidate>(data,"Aday bulundu");
 	}
 
 	@Override
 	public DataResult<Candidate> findByNationalityId(String nationalityId) {
-		return new SuccessDataResult<Candidate>(this.candidateDao.findByNationalityId(nationalityId),"Aday bulundu");
+		var data = this.candidateDao.findByNationalityId(nationalityId);
+		if(data==null) {
+			return new ErrorDataResult<Candidate>("Aday bulunamadı");
+		}
+		return new SuccessDataResult<Candidate>(data,"Aday bulundu");
 	}
 
 	
@@ -81,27 +94,35 @@ public class CandidateManager implements CandidateService {
 	
 	// business codes
 	
-//	private Result checkForAdd(Candidate candidate) {
-//		
-//		var checkEmail = this.findByEmail(candidate.getEmail()).isSuccess();
-//		var checkNationalityId = this.findByNationalityId(candidate.getNationalityId()).isSuccess();
-//		var checkIfRealPerson = this.checkIfRealPerson(
+	private Result checkForAdd(Candidate candidate) {
+		
+		var checkEmail = this.findByEmail(candidate.getEmail());
+		
+		var checkNationalityId = this.findByNationalityId(candidate.getNationalityId());
+		
+		var checkBirthOfDate = !LocalDate.now().isAfter(candidate.getBirthOfDate().toLocalDate());
+		
+//		var checkIfRealPerson = this.userCheckService.checkIfRealPerson(
 //				candidate.getFirstName(),
 //				candidate.getLastName(),
 //				candidate.getNationalityId(),
-//				candidate.getBirthOfDate()).isSuccess();
-//		
-//		if(checkEmail||checkNationalityId) {
-//			return new ErrorResult("Kimlik numarası/Email zaten mevcut");
-//		}
-//		
+//				candidate.getBirthOfDate());
+		
+		if(checkEmail.isSuccess()||checkNationalityId.isSuccess()) {
+			return new ErrorResult("Kimlik numarası/Email zaten mevcut");
+		}
+		
+		else if(checkBirthOfDate) {
+			return new ErrorResult("Lütfen bugünden önce bir doğum tarihi giriniz");
+		}
+		
 //		else if(!checkIfRealPerson) {
 //			return new ErrorResult("Lütfen kişi bilgilerini doğru giriniz");
 //		}
-//		
-//		this.candidateDao.save(candidate);
-//		EmailService.sendEmail(candidate.getEmail());
-//		return new SuccessResult("Aday eklendi");
-//	}
+
+		//EmailService; // core helper içinde, entegre ederken kontrol et
+		
+		return new SuccessResult("checkForAdd : OK");
+	}
 
 }

@@ -26,6 +26,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "languages")
 public class Language {
 	
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

@@ -8,6 +8,6 @@ public interface SystemPersonnelDao extends JpaRepository<SystemPersonnel, Integ
 	
 	SystemPersonnel findById(int systemPerosonnelId);
 	
-	SystemPersonnel findByUser_Email(String email);
+	SystemPersonnel findByEmail(String email);
 
 }

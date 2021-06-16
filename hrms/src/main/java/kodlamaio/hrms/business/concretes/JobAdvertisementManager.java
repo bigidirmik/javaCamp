@@ -1,6 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.JobAdvertisementService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -30,8 +32,11 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 	@Override
 	public Result add(JobAdvertisement jobAdvertisement) {
-		this.jobAdvertisementDao.save(jobAdvertisement);
-		return new SuccessResult("İş ilanı eklendi");
+		if(checkForAdd(jobAdvertisement).isSuccess()) {
+			this.jobAdvertisementDao.save(jobAdvertisement);
+			return new SuccessResult("İş ilanı eklendi");
+		}
+		return new ErrorResult(checkForAdd(jobAdvertisement).getMessage());
 	}
 	
 	@Override
@@ -79,6 +84,29 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public DataResult<List<JobAdvertisement>> getByQueryActiveAndAppDeadlineAsc(boolean isActive, Date applicationDeadline) {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByQueryActiveAndAppDeadlineAsc(isActive, applicationDeadline),"Data listelendi");
+	}
+	
+	
+	// business codes
+	
+	private Result checkForAdd(JobAdvertisement jobAdvertisement) {
+		
+		var deadLineCheck = !LocalDate.now().isBefore(jobAdvertisement.getApplicationDeadline().toLocalDate());
+		
+		if(deadLineCheck) {
+			return new ErrorResult("Lütfen doğru bir tarih giriniz");
+		}
+		
+		else if(jobAdvertisement.getPositionQuota()<=0) {
+			return new ErrorResult("Lütfen doğru bir kota giriniz");
+		}
+		
+		else if(jobAdvertisement.getSalaryMin()<0 || jobAdvertisement.getSalaryMax()<jobAdvertisement.getSalaryMin()) {
+			return new ErrorResult("Lütfen ücretlendirmeyi doğru giriniz");
+		}
+		
+		return new SuccessResult();
+		
 	}
 	
 }

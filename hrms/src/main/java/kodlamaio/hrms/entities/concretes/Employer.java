@@ -30,6 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Employer extends User {
 
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -56,8 +57,9 @@ public class Employer extends User {
 	
 	// ORM
 	
+	@JsonIgnore
 	@OneToOne()
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "id")
 	private User user;
 	
 	@JsonIgnore

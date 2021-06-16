@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,21 +21,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import kodlamaio.hrms.business.abstracts.CandidateService;
 import kodlamaio.hrms.business.abstracts.WorkExperienceService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
 import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
+import kodlamaio.hrms.entities.concretes.Candidate;
 import kodlamaio.hrms.entities.concretes.WorkExperience;
 
 @RestController
 @RequestMapping("/api/work-experiences")
+@CrossOrigin
 public class WorkExperiencesController {
 	
 	private WorkExperienceService workExperienceService;
+	private CandidateService candidateService;
 
 	@Autowired
-	public WorkExperiencesController(WorkExperienceService workExperienceService) {
+	public WorkExperiencesController(WorkExperienceService workExperienceService, CandidateService candidateService) {
 		super();
 		this.workExperienceService = workExperienceService;
+		this.candidateService = candidateService;
 	}
 	
 	@GetMapping("/getAllByCandidateIdOrderByEndDateDesc")
@@ -43,7 +49,9 @@ public class WorkExperiencesController {
 	}
 	
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@Valid @RequestBody WorkExperience workExperience) {
+	public ResponseEntity<?> add(@RequestParam int candidateId, @Valid @RequestBody WorkExperience workExperience) {
+		Candidate candidate = this.candidateService.findById(candidateId).getData();
+		workExperience.setCandidate(candidate);
 		return ResponseEntity.ok(this.workExperienceService.add(workExperience));
 	}
 	

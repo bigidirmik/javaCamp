@@ -31,8 +31,8 @@ public class SkillManager implements SkillService {
 	}
 
 	@Override
-	public DataResult<List<Skill>> getByCandidateId(int candidateId) {
-		return new SuccessDataResult<List<Skill>>(this.skillDao.getByCandidate_Id(candidateId),"Beceri bulundu");
+	public DataResult<List<Skill>> getAllByCandidateId(int candidateId) {
+		return new SuccessDataResult<List<Skill>>(this.skillDao.getAllByCandidate_Id(candidateId),"Beceriler bulundu");
 	};
 	
 }

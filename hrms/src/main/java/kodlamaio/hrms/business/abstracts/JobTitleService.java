@@ -16,4 +16,6 @@ public interface JobTitleService {
 	
 	DataResult<List<JobTitle>> getAll(int pageNo, int pageSize);
 	
+	DataResult<JobTitle> findById(int jobTitleId);
+	
 }

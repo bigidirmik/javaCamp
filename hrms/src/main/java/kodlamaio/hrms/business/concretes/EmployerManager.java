@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import kodlamaio.hrms.business.abstracts.EmployerService;
 import kodlamaio.hrms.core.utilities.results.DataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorDataResult;
+import kodlamaio.hrms.core.utilities.results.ErrorResult;
 import kodlamaio.hrms.core.utilities.results.Result;
 import kodlamaio.hrms.core.utilities.results.SuccessDataResult;
 import kodlamaio.hrms.core.utilities.results.SuccessResult;
@@ -29,9 +31,11 @@ public class EmployerManager implements EmployerService {
 
 	@Override
 	public Result add(Employer employer) {
-		//return this.checkForAdd(employer); // ilgili kod satırı en altta
-		this.employerDao.save(employer);
-		return new SuccessResult("İşveren eklendi");
+		if(checkForAdd(employer).isSuccess()) {
+			this.employerDao.save(employer);
+			return new SuccessResult("İşveren eklendi");
+		}
+		return new ErrorResult(checkForAdd(employer).getMessage());
 	}
 
 	@Override
@@ -59,24 +63,28 @@ public class EmployerManager implements EmployerService {
 
 	@Override
 	public DataResult<Employer> findByEmail(String email) {
-		return new SuccessDataResult<Employer>(this.employerDao.findByUser_Email(email),"İşveren bulundu");
+		var data = this.employerDao.findByEmail(email);
+		if(data==null) {
+			return new ErrorDataResult<Employer>("İşveren bulunamadı");
+		}
+		return new SuccessDataResult<Employer>(data,"İşveren bulundu");
 	}
 	
 	
-//	// business codes
-//	
-//	private Result checkForAdd(Employer employer) {
-//		
-//		var checkEmail = this.findByEmail(employer.getEmail()).isSuccess();
-//		//var checkWebAdress = (employer.getEmail() == employer.getWebAdress()).isSuccess();
-//		
-//		if(checkEmail) {
-//			return new ErrorResult("Email zaten mevcut");
-//		}
-//		
-//		this.employerDao.save(employer);
-//		EmailService.sendEmail(employer.getEmail());
-//		return new SuccessResult("İşveren eklendi");
-//	}
+	// business codes
+	
+	private Result checkForAdd(Employer employer) {
+		
+		var checkEmail = this.findByEmail(employer.getEmail());
+		//var checkWebAdress = (employer.getEmail() == employer.getWebAdress()).isSuccess();
+		
+		if(checkEmail.isSuccess()) {
+			return new ErrorResult("Email zaten mevcut");
+		}
+		
+		//EmailService;
+		
+		return new SuccessResult("checkForAdd : OK");
+	}
 
 }
