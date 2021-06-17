@@ -12,6 +12,8 @@ public interface ProductDao extends JpaRepository<Product, Integer>{
 
 	// Bu isimlendirme kurallarına uyulan metotlar jpa ile otomatik olarak veri tabanı sorgusu yaparlar
 	
+	Product findById(int productId);
+	
 	Product getByProductName(String productName);
 	// select * from products where product_name = abc
 	

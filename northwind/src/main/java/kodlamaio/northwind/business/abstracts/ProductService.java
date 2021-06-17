@@ -11,6 +11,8 @@ public interface ProductService {
 	
 	Result add(Product product);
 	
+	DataResult<Product> findById(int productId);
+	
 	DataResult<List<Product>> getAll();
 	
 	DataResult<List<Product>> getAll(int pageNo, int pageSize);

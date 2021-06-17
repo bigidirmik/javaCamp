@@ -29,6 +29,11 @@ public class ProductsController {
 		super();
 		this.productService = productService;
 	}
+	
+	@GetMapping("/findById")
+	public DataResult<Product> findById(@RequestParam int productId){
+		return this.productService.findById(productId);
+	}
 
 	@GetMapping("/getAll")
 	public DataResult<List<Product>> getAll(){
