@@ -51,6 +51,9 @@ public class JobAdvertisement {
 
 	@Column(name = "is_active")
 	private boolean isActive;
+	
+	@Column(name = "is_confirmed")
+	private boolean isConfirmed;
 
 	// ORM
 
@@ -65,5 +68,13 @@ public class JobAdvertisement {
 	@ManyToOne()
 	@JoinColumn(name = "city_id")
 	private City city;
+	
+	@ManyToOne()
+	@JoinColumn(name = "typeOfJob_id")
+	private TypeOfJob typeOfJob;
+	
+	@ManyToOne()
+	@JoinColumn(name = "workingTime_id")
+	private WorkingTime workingTime;
 
 }

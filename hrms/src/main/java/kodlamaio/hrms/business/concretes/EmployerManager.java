@@ -37,6 +37,16 @@ public class EmployerManager implements EmployerService {
 		}
 		return new ErrorResult(checkForAdd(employer).getMessage());
 	}
+	
+	
+	@Override
+	public Result setConfirmationStatus(int employerId, boolean status) {
+		var employer = this.employerDao.getOne(employerId);
+		employer.setConfirmed(status);
+		this.employerDao.save(employer);
+		return new SuccessResult("Sistem Personeli onayı :" + status);
+	}
+	
 
 	@Override
 	public DataResult<List<Employer>> getAll() {
@@ -68,6 +78,12 @@ public class EmployerManager implements EmployerService {
 			return new ErrorDataResult<Employer>("İşveren bulunamadı");
 		}
 		return new SuccessDataResult<Employer>(data,"İşveren bulundu");
+	}
+	
+
+	@Override
+	public DataResult<List<Employer>> getByIsConfirmed(boolean isConfirmed) {
+		return new SuccessDataResult<List<Employer>>(this.employerDao.getByIsConfirmed(isConfirmed),"Data listelendi");
 	}
 	
 	

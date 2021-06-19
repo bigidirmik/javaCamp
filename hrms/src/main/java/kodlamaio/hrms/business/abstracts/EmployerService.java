@@ -10,6 +10,8 @@ public interface EmployerService {
 	
 	Result add(Employer employer);
 	
+	Result setConfirmationStatus(int employerId, boolean status);
+	
 	DataResult<List<Employer>> getAll();
 	
 	DataResult<List<Employer>> getAllAsc();
@@ -20,5 +22,7 @@ public interface EmployerService {
 	DataResult<Employer> findById(int employerId);
 	
 	DataResult<Employer> findByEmail(String email);
+	
+	DataResult<List<Employer>> getByIsConfirmed(boolean isConfirmed);
 
 }

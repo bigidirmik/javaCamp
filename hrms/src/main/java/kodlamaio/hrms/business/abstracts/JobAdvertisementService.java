@@ -11,7 +11,11 @@ public interface JobAdvertisementService {
 
 	Result add(JobAdvertisement jobAdvertisement);
 	
-	Result setActivityStatus(int id, boolean status);
+	
+	Result setActivityStatus(int jobAdvertisementId, boolean status);
+	
+	Result setConfirmationStatus(int jobAdvertisementId, boolean status);
+	
 	
 	DataResult<List<JobAdvertisement>> getAll();
 	
@@ -28,5 +32,8 @@ public interface JobAdvertisementService {
 	
 	//Query Method
 	DataResult<List<JobAdvertisement>> getByQueryActiveAndAppDeadlineAsc(boolean isActive, Date applicationDeadline);
+	
+	
+	DataResult<List<JobAdvertisement>> getByIsConfirmed(boolean isConfirmed);
 	
 }

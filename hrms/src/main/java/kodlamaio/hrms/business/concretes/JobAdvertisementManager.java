@@ -39,13 +39,23 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new ErrorResult(checkForAdd(jobAdvertisement).getMessage());
 	}
 	
+	
 	@Override
-	public Result setActivityStatus(int id, boolean status) {
-		var advertisement = this.jobAdvertisementDao.getOne(id);
+	public Result setActivityStatus(int jobAdvertisementId, boolean status) {
+		var advertisement = this.jobAdvertisementDao.getOne(jobAdvertisementId);
 		advertisement.setActive(status);
 		this.jobAdvertisementDao.save(advertisement);
-		return new SuccessResult("İlan aktifliği: " + status);
+		return new SuccessResult("İlan aktifliği : " + status);
 	}
+	
+	@Override
+	public Result setConfirmationStatus(int jobAdvertisementId, boolean status) {
+		var advertisement = this.jobAdvertisementDao.getOne(jobAdvertisementId);
+		advertisement.setConfirmed(status);
+		this.jobAdvertisementDao.save(advertisement);
+		return new SuccessResult("Sistem Personeli onayı :" + status);
+	}
+	
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAll() {
@@ -64,12 +74,20 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.findAll(pageable).getContent(),"Data listelendi");
 	}
 	
+	
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getByIsActive(boolean isActive) {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActive(isActive),"Data listelendi");
 	}
 
+	@Override
+	public DataResult<List<JobAdvertisement>> getByIsConfirmed(boolean isConfirmed) {
+		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsConfirmed(isConfirmed),"Data listelendi");
+	}
+	
+	
+	
 	@Override
 	public DataResult<List<JobAdvertisement>> getByIsActiveAndApplicationDeadline(boolean isActive, Date applicationDeadline) {
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActiveAndApplicationDeadline(isActive, applicationDeadline),"Data listelendi");

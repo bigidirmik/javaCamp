@@ -20,4 +20,7 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	@Query("From JobAdvertisement where isActive=:isActive and applicationDeadline=:applicationDeadline order by applicationDeadline Asc")
 	List<JobAdvertisement> getByQueryActiveAndAppDeadlineAsc(boolean isActive, Date applicationDeadline);
 	
+	
+	List<JobAdvertisement> getByIsConfirmed(boolean isConfirmed);
+	
 }

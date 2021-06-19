@@ -53,6 +53,9 @@ public class Employer extends User {
 	@NotNull
 	@Column(name = "phone_number")
 	private String phoneNumber;
+	
+	@Column(name = "is_confirmed")
+	private boolean isConfirmed;
 
 	
 	// ORM
