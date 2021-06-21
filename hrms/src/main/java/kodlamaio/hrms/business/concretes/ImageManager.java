@@ -46,7 +46,11 @@ public class ImageManager implements ImageService {
 	public DataResult<Image>getByCandidateId(int candidateId) {
 		return new SuccessDataResult<Image>(this.imageDao.getByCandidate_Id(candidateId),"Fotoğraf bulundu");
 	}
-	
-	
+
+	@Override
+	public Result delete(Image image) {
+		this.imageDao.delete(image);
+		return new SuccessResult("Fotoğraf Silindi");
+	}
 	
 }

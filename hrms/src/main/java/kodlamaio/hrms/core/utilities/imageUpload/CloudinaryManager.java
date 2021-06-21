@@ -35,7 +35,6 @@ public class CloudinaryManager implements CloudinaryService {
 			return new SuccessDataResult<Map>(resultMap);
 		} catch (IOException e) {
 			e.printStackTrace();
-			
 		}
 		return new ErrorDataResult<Map>();
 	}

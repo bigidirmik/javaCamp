@@ -2,6 +2,7 @@ package kodlamaio.hrms.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,9 @@ public class ImagesController {
 	public Result add(@RequestParam(value = "candidateId") int candidateId, @RequestParam(value = "imageFile") MultipartFile imageFile){
 		Candidate candidate = this.candidateService.findById(candidateId).getData();
 		Image image = new Image();
+		if(candidate.getImage()!=null) {
+			this.delete(candidateId);
+		}
 		image.setCandidate(candidate);
 		return this.imageService.add(image, imageFile);
 	}
@@ -47,6 +51,12 @@ public class ImagesController {
 	@GetMapping("/getByCandidateId")
 	public DataResult<Image> getByCandidateId(@RequestParam int candidateId) {
 		return this.imageService.getByCandidateId(candidateId);
+	}
+	
+	@DeleteMapping("/delete")
+	public Result delete(@RequestParam(value = "candiateId") int candidateId) {
+		Image image = this.getByCandidateId(candidateId).getData();
+		return this.imageService.delete(image);
 	}
 
 }

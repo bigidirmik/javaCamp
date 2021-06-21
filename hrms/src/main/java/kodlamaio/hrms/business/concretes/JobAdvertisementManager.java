@@ -51,9 +51,13 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	@Override
 	public Result setConfirmationStatus(int jobAdvertisementId, boolean status) {
 		var advertisement = this.jobAdvertisementDao.getOne(jobAdvertisementId);
-		advertisement.setConfirmed(status);
-		this.jobAdvertisementDao.save(advertisement);
-		return new SuccessResult("Sistem Personeli onayı :" + status);
+		var checkDeadLine = LocalDate.now().isBefore(advertisement.getApplicationDeadline().toLocalDate());
+		if (checkDeadLine) {
+			advertisement.setConfirmed(status);
+			this.jobAdvertisementDao.save(advertisement);
+			return new SuccessResult("Sistem Personeli onayı :" + status);
+		}
+		return new ErrorResult("İlan tarihi güncel değil! İlan aktif edilemez");
 	}
 	
 
@@ -78,6 +82,7 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getByIsActive(boolean isActive) {
+		this.setActivationsByDeadLine();
 		return new SuccessDataResult<List<JobAdvertisement>>(this.jobAdvertisementDao.getByIsActive(isActive),"Data listelendi");
 	}
 
@@ -109,9 +114,9 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 	
 	private Result checkForAdd(JobAdvertisement jobAdvertisement) {
 		
-		var deadLineCheck = !LocalDate.now().isBefore(jobAdvertisement.getApplicationDeadline().toLocalDate());
+		var checkDeadLine = !LocalDate.now().isBefore(jobAdvertisement.getApplicationDeadline().toLocalDate());
 		
-		if(deadLineCheck) {
+		if(checkDeadLine) {
 			return new ErrorResult("Lütfen doğru bir tarih giriniz");
 		}
 		
@@ -122,9 +127,19 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		else if(jobAdvertisement.getSalaryMin()<0 || jobAdvertisement.getSalaryMax()<jobAdvertisement.getSalaryMin()) {
 			return new ErrorResult("Lütfen ücretlendirmeyi doğru giriniz");
 		}
-		
 		return new SuccessResult();
-		
+	}
+	
+	
+	private void setActivationsByDeadLine() {
+		var jobAdvertisements = this.getByIsActive(true).getData();
+		for (JobAdvertisement jobAdvertisement : jobAdvertisements) {
+			var checkDeadLine = LocalDate.now().isAfter(jobAdvertisement.getApplicationDeadline().toLocalDate());
+			if (checkDeadLine) {
+				jobAdvertisement.setActive(false);
+				System.out.println("Tarihi geçen ilanlar de-aktif edildi");
+			}
+		}
 	}
 	
 }

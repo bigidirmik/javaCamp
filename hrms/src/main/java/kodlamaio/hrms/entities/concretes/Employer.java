@@ -68,5 +68,9 @@ public class Employer extends User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "employer")
 	private List<JobAdvertisement> jobAdvertisements;
+	
+	@OneToOne(mappedBy = "employer")
+	private Logo logo;
+
 
 }

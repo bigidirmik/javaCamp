@@ -1,5 +1,7 @@
 package kodlamaio.hrms.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,11 @@ public class WorkingTimeManager implements WorkingTimeService {
 	@Override
 	public DataResult<WorkingTime> findById(int id) {
 		return new SuccessDataResult<WorkingTime>(this.workingTimeDao.findById(id),"Çalışma zamanı bulundu");
+	}
+
+	@Override
+	public DataResult<List<WorkingTime>> getAll() {
+		return new SuccessDataResult<List<WorkingTime>>(this.workingTimeDao.findAll(),"Çalışma zamanları listelendi");
 	}
 	
 }
