@@ -107,6 +107,12 @@ public class JobAdvertisementsController {
 		return this.jobAdvertisementService.setConfirmationStatus(jobAdvertisementId, status);
 	}
 
+	
+	@GetMapping("/findById")
+	public DataResult<JobAdvertisement> findById(@RequestParam int id) {
+		return this.jobAdvertisementService.findById(id);
+	}
+	
 	@GetMapping("/getAll")
 	public DataResult<List<JobAdvertisement>> getAll() {
 		return this.jobAdvertisementService.getAll();

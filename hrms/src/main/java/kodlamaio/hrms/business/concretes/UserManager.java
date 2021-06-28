@@ -52,4 +52,13 @@ public class UserManager implements UserService {
 		return new SuccessDataResult<User>(data,"Kullanıcı bulundu");
 	}
 
+	@Override
+	public DataResult<User> findById(int id) {
+		var data = this.userDao.findById(id);
+		if(data==null) {
+			return new ErrorDataResult<User>("Kullanıcı bulunamadı");
+		}
+		return new SuccessDataResult<User>(data,"Kullanıcı bulundu");
+	}
+
 }

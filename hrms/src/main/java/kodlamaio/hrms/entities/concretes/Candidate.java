@@ -80,7 +80,6 @@ public class Candidate extends User {
 	@OneToMany(mappedBy = "candidate")
 	private List<Language> languages;
 	
-	@JsonIgnore
 	@OneToOne(mappedBy = "candidate")
 	private Image image;
 	

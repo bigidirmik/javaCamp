@@ -60,6 +60,13 @@ public class JobAdvertisementManager implements JobAdvertisementService {
 		return new ErrorResult("İlan tarihi güncel değil! İlan aktif edilemez");
 	}
 	
+	
+	
+	@Override
+	public DataResult<JobAdvertisement> findById(int id) {
+		return new SuccessDataResult<JobAdvertisement>(this.jobAdvertisementDao.findById(id),"İlan bulundu");
+	}
+	
 
 	@Override
 	public DataResult<List<JobAdvertisement>> getAll() {

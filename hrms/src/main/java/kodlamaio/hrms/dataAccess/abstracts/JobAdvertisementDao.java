@@ -23,4 +23,6 @@ public interface JobAdvertisementDao extends JpaRepository<JobAdvertisement, Int
 	
 	List<JobAdvertisement> getByIsConfirmed(boolean isConfirmed);
 	
+	JobAdvertisement findById(int id);
+	
 }

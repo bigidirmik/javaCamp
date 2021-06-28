@@ -36,4 +36,6 @@ public interface JobAdvertisementService {
 	
 	DataResult<List<JobAdvertisement>> getByIsConfirmed(boolean isConfirmed);
 	
+	DataResult<JobAdvertisement> findById(int id);
+	
 }

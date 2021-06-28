@@ -15,5 +15,7 @@ public interface UserService {
 	
 	
 	DataResult<User> findByEmail(String email);
+	
+	DataResult<User> findById(int id);
 
 }
